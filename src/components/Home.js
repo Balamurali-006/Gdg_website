@@ -1,5 +1,4 @@
 import React from 'react';
-import TextPressure from './TextPressure';
 import CountUp from './CountUp';
 import RevealOnScroll from './RevealOnScroll';
 import RippleButton from './RippleButton';
