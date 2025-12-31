@@ -6,13 +6,20 @@ import AboutUs from './components/AboutUs';
 import Members from './components/Members';
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
+import ParticlesBackground from './components/ParticlesBackground';
 
 const App = () => {
   const [currentRoute, setCurrentRoute] = useState('home');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const navigate = (route) => {
-    setCurrentRoute(route);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (route !== currentRoute) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentRoute(route);
+        setIsTransitioning(false);
+      }, 300);
+    }
   };
 
   const renderPage = () => {
@@ -31,10 +38,11 @@ const App = () => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-black text-white min-h-screen relative overflow-hidden">
+      <ParticlesBackground />
       <Header />
       <Navigation currentRoute={currentRoute} navigate={navigate} />
-      <main className="relative z-10">
+      <main className={`relative z-10 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
         {renderPage()}
       </main>
       <Footer />
